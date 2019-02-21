@@ -1,5 +1,13 @@
-from flask_sqlalchemy import SQLAlchemy
 """Models for Blogly."""
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
+
+def connect_db(app):
+        """ connect to db"""                
+        db.app = app
+        db.init_app(app)
+
 class User(db.Model):
     """User."""
 
@@ -17,4 +25,8 @@ class User(db.Model):
     image_url = db.Column(db.String(500), 
                     nullable=True, 
                     default='https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg')
-                
+
+    # def get_fname_lname(self):
+    #     """ get first and last name of all users"""
+    #     return {self.first_name,
+    #             self.last_name}
