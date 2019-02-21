@@ -10,7 +10,7 @@ def connect_db(app):
 
 class User(db.Model):
     """User."""
-
+    
     __tablename__ = "users"
 
     id = db.Column(db.Integer,
@@ -26,3 +26,5 @@ class User(db.Model):
                     nullable=True, 
                     default='https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg')
 
+    def full_name(self):
+        return self.first_name + ' ' + self.last_name    

@@ -25,7 +25,7 @@ def redirect_to_users():
 def show_users():
     '''Get / render the list of users'''
     users = User.query.all()
-
+    
     return render_template('users.html', users = users)
 
 @app.route('/users/new')
@@ -54,7 +54,6 @@ def show_user_info(userid):
     '''show: /userpage.html
     users info'''
     user = User.query.get(userid)
-    # print(user.image_url)
     return render_template('userpage.html', user = user)
 
 
@@ -73,7 +72,6 @@ def edit_user(userid):
 def save_edit_user_info(userid):
     '''create new users and redirect to users page'''
     user = User.query.get(userid)
-
     user.first_name  = request.form.get('first-name')
     user.last_name  = request.form.get('last-name')
     user.image_url = request.form.get('image-url')
@@ -99,3 +97,4 @@ def delete_user_info(userid):
     db.session.commit()
 
     return redirect('/users')    
+

@@ -2,8 +2,8 @@
 
 {% block content %}
     <h3>Users</h3>
-        {% for user in users%}
-        <li> <a href="/users/{{user.id}}"> {{user.first_name}} {{user.last_name}} </a></li>
+        {% for user in users %}
+        <li> <a href="/users/{{user.id}}"> {{user.full_name()}} </a></li>
         {% endfor %}
 
 <form action="/users/new" >
