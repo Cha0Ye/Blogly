@@ -104,17 +104,25 @@ def delete_user_info(userid):
     return redirect('/users')    
 
 
-############ ADD POSTS IN USER PAGE ############
-# @app.route('/users/<int:userid>/posts/new')
-# def add_post(userid):
-#     '''Add post '''
+########### ADD POSTS IN USER PAGE ############
+@app.route('/users/<int:userid>/posts/new')
+def show_add_post(userid):
+    '''Show Add New post '''
+    user = User.query.get(userid)
 
-##     user = User.query.get(userid)
+    return render_template('newpost.html', user=user)
 
-#     post.title  = request.form.get('title')
-#     post.content  = request.form.get('content')
-#     post.user_id = userid
+
+@app.route('/users/<int:userid>/posts', methods=['POST'])
+def add_post(userid):
+    '''Add post '''
+    user = User.query.get(userid)
+
+    post.title  = request.form.get('post-title')
+    post.content  = request.form.get('post-content')
+    post.user_id = userid
     
-#     db.session.commit()
+    db.session.commit()
 
-#     return render_template('userpage.html', user = user)
+    return redirect('/users')
+    # return redirect(f'/users/{userid}')

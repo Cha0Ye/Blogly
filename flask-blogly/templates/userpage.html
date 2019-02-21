@@ -10,16 +10,15 @@
         <button>Delete</button>
     </form>
 
-    <!-- {% if user.posts %} -->
+    {% if user.posts %}
         <h3>Posts</h3>
         {% for post in user.posts %}
             <ul>
                 <li><a href="/posts/{{post.id}}"> {{ post.title }}</a></li>
             </ul>
         {% endfor %}
-        <form action="/users/{{ user.id }}/posts/new" method="POST">
-            <button>Add Post</button>
-        </form>
-    <!-- {% endif %} -->
-
+    {% endif %}
+    <form action="/users/{{ user.id }}/posts/new">
+        <button>Add Post</button>
+    </form>
 {% endblock %}
