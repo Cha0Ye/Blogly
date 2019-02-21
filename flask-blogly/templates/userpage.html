@@ -10,4 +10,16 @@
         <button>Delete</button>
     </form>
 
+    {% if POSTS!!!!! %}
+        <h3>Posts</h3>
+        {% for post in user.posts %}
+            <ul>
+                <li>{ post }</li>
+            </ul>
+        {% endfor %}
+        <form action="/users/{{ user.id }}/posts/new" method="POST">
+            <button>Add Post</button>
+        </form>
+    {% endif %}
+
 {% endblock %}
