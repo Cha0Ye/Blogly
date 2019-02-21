@@ -89,3 +89,13 @@ def cancel_edit_user_info(userid):
     user = User.query.get(userid)
 
     return redirect('/users/<int:userid>')
+
+
+@app.route('/users/<int:userid>/delete', methods=['POST'])
+def delete_user_info(userid):
+    '''delete user info'''
+    user = User.query.get(userid)
+    db.session.delete(user)
+    db.session.commit()
+
+    return redirect('/users')    
