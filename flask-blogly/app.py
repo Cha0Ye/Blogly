@@ -28,17 +28,17 @@ def show_users():
 
     return render_template('users.html', users = users)
 
-
 @app.route('/users/new')
 def new_user():
-    '''create new user'''
+    '''show: /newuser.html
+    create new user'''
 
     return render_template('newuser.html')
 
-
 @app.route('/users', methods = ['POST'])
 def create_new_user():
-    '''show users'''
+    ''' show: /users
+    create new users and redirect to users page'''
     new_first_name = request.form.get('first-name')
     new_last_name  = request.form.get('last-name')
     new_image_url = request.form.get('image-url')
@@ -47,17 +47,45 @@ def create_new_user():
     db.session.add(new_user)
     db.session.commit()
 
-    return redirect('/users')    
+    return redirect('/users')
+
+@app.route('/users/<int:userid>')
+def show_user_info(userid):
+    '''show: /userpage.html
+    users info'''
+    user = User.query.get(userid)
+    # print(user.image_url)
+    return render_template('userpage.html', user = user)
 
 
-# @app.route('/users/new', methods = ['POST'])
-# def new_user():
-#     '''create new user'''
 
-#     return render_template('newuser.html')
+# EDIT USER PAGE
+
+@app.route('/users/<int:userid>/edit')
+def edit_user(userid):
+    ''' show: /edituser.html
+    Edit new user'''
+    user = User.query.get(userid)
+
+    return render_template('edituser.html', user = user)
 
 
+# @app.route('/users/<int:userid>', methods = ['POST'])
+# def save_edit_user_info():
+#     '''create new users and redirect to users page'''
+#     new_first_name = request.form.get('first-name')
+#     new_last_name  = request.form.get('last-name')
+#     new_image_url = request.form.get('image-url')
+
+#     new_user = User(first_name = new_first_name, last_name = new_last_name, image_url=new_image_url)
+#     db.session.add(new_user)
+#     db.session.commit()
+
+#     return redirect('/users/<int:userid>')
 
 
+# @app.route('/users/<int:userid>')
+# def cancel_edit_user_info():
+#     '''cancel edit user info'''
 
-# db.create_all()
+#     return redirect('/users/<int:userid>')

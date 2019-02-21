@@ -13,11 +13,14 @@ User.query.delete()
 alan = User(first_name='Alan', last_name='Alda')
 joel = User(first_name='Joel', last_name='Burton')
 jane = User(first_name='Jane', last_name='Smith')
+sara = User(first_name='Sara', last_name='Zare', image_url='flask-blogly/Sara.jpeg')
+
 
 # Add new objects to session, so they'll persist
 db.session.add(alan)
 db.session.add(joel)
 db.session.add(jane)
+db.session.add(sara)
 
 # Commit--otherwise, this never gets saved!
 db.session.commit()

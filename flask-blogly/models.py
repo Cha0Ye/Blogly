@@ -26,7 +26,3 @@ class User(db.Model):
                     nullable=True, 
                     default='https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg')
 
-    # def get_fname_lname(self):
-    #     """ get first and last name of all users"""
-    #     return {self.first_name,
-    #             self.last_name}
