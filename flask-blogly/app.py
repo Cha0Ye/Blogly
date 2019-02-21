@@ -20,6 +20,7 @@ def redirect_to_users():
     '''show users'''
     return redirect('/users')
 
+############ SHOW USERS PAGE ############
 
 @app.route('/users')
 def show_users():
@@ -27,6 +28,8 @@ def show_users():
     users = User.query.all()
     
     return render_template('users.html', users = users)
+
+############ ADD NEW USERS ############
 
 @app.route('/users/new')
 def new_user():
@@ -39,9 +42,16 @@ def new_user():
 def create_new_user():
     ''' show: /users
     create new users and redirect to users page'''
-    new_first_name = request.form.get('first-name')
-    new_last_name  = request.form.get('last-name')
-    new_image_url = request.form.get('image-url')
+    new_first_name = request.form.get('first-name') 
+    new_last_name  = request.form.get('last-name') 
+    new_image_url = request.form.get('image-url') 
+
+    # new_first_name = request.form.get('first-name') or None
+    # new_last_name  = request.form.get('last-name') or None
+    # new_image_url = request.form.get('image-url') or None
+
+    # if new_first_name == "":
+    #     ...
 
     new_user = User(first_name = new_first_name, last_name = new_last_name, image_url=new_image_url)
     db.session.add(new_user)
@@ -49,16 +59,19 @@ def create_new_user():
 
     return redirect('/users')
 
+############ SHOW EXISTING USER PAGE ############
+
 @app.route('/users/<int:userid>')
 def show_user_info(userid):
     '''show: /userpage.html
     users info'''
     user = User.query.get(userid)
+    
     return render_template('userpage.html', user = user)
 
 
+############ EDIT EXISTING USERS PAGE ############
 
-# EDIT USER PAGE
 @app.route('/users/<int:userid>/edit')
 def edit_user(userid):
     ''' show: /edituser.html
@@ -66,7 +79,6 @@ def edit_user(userid):
     user = User.query.get(userid)
 
     return render_template('edituser.html', user = user)
-
 
 @app.route('/users/<int:userid>/edit', methods = ['POST'])
 def save_edit_user_info(userid):
@@ -80,14 +92,7 @@ def save_edit_user_info(userid):
 
     return redirect('/users')
 
-
-@app.route('/users/<int:userid>')
-def cancel_edit_user_info(userid):
-    '''cancel edit user info'''
-    user = User.query.get(userid)
-
-    return redirect('/users/<int:userid>')
-
+############ DELETE USER  ############
 
 @app.route('/users/<int:userid>/delete', methods=['POST'])
 def delete_user_info(userid):
@@ -98,3 +103,18 @@ def delete_user_info(userid):
 
     return redirect('/users')    
 
+
+############ ADD POSTS IN USER PAGE ############
+# @app.route('/users/<int:userid>/posts/new')
+# def add_post(userid):
+#     '''Add post '''
+
+##     user = User.query.get(userid)
+
+#     post.title  = request.form.get('title')
+#     post.content  = request.form.get('content')
+#     post.user_id = userid
+    
+#     db.session.commit()
+
+#     return render_template('userpage.html', user = user)

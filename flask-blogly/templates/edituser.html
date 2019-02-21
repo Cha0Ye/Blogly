@@ -11,8 +11,8 @@
     <label for="image-url">Image URL</label>
     <input type="text" name="image-url" value="{{user.image_url}}">
     <button>Save</button>
+    <form formaction="/users/{{user.id}}" formmethod="GET" > <button>Cancel</button></form>
 </form>
-<form action="/users/{{user.id}}"> <button>Cancel</button></form>
       
 
 
