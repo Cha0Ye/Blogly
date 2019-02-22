@@ -74,7 +74,7 @@ def show_user_info(userid):
 ############ EDIT EXISTING USERS PAGE ############
 
 @app.route('/users/<int:userid>/edit')
-def edit_user(userid):
+def render_edit_user(userid):
     ''' show: /edituser.html
     Edit existing user'''
     user = User.query.get(userid)
@@ -130,7 +130,7 @@ def handle_new_post(userid):
     return redirect(f'/users/{userid}')
 
 ########### RENDER SHOW POST ############
-@app.route('/posts/<postid>')
+@app.route('/posts/<int:postid>')
 def show_post(postid):
     '''Show Post '''
     
@@ -140,6 +140,29 @@ def show_post(postid):
     return render_template('showpost.html', post=post, user=user)
 
 
-# render edit form GET /users/posts/{{user.id}}/edit
-# delete POST /users/posts/{{user.id}}/delete
-#     
+########### SHOW EDIT POST ############
+@app.route('/posts/<int:postid>/edit')
+def render_edit_post(postid):
+    ''' Render post edit page'''
+
+    post = Post.query.get(postid)
+    user = post.user_route
+    return render_template('editpost.html', user= user, post = post)
+
+########### SAVE EDIT POST ############
+@app.route('/posts/<int:postid>/edit', methods=['POST'])
+def save_edit_post(postid):
+    '''Handle edited post data'''
+    post = Post.query.get(postid)
+
+    post.title  = request.form.get('post-title')
+    post.content  = request.form.get('post-content')
+    
+    user = post.user_route
+    post.user_id = user.id
+    
+    # edited_post = Post(title = post_title, content = post_content, user_id = post_user_id)
+    # db.session.add(edited_post)
+    db.session.commit()
+
+    return redirect(f'/posts/{postid}')

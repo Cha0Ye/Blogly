@@ -3,15 +3,15 @@
 {% block content %}
 
 <h3>Edit User Info</h3>
-<form action="/users/{{user.id}}/edit" method="POST">
+<form>
     <label for="first-name">First Name</label>
     <input type="text" name='first-name' value="{{user.first_name}}"><br>
     <label for="last-name">Last Name</label>
     <input type="text" name="last-name" value="{{user.last_name}}"><br>
     <label for="image-url">Image URL</label>
     <input type="text" name="image-url" value="{{user.image_url}}">
-    <button>Save</button>
-    <form formaction="/users/{{user.id}}" formmethod="GET" > <button>Cancel</button></form>
+    <button formaction="/users/{{user.id}}/edit" formmethod="POST">Save</button>
+    <button formaction="/users/{{user.id}}" formmethod="GET" > Cancel</button>
 </form>
       
 
