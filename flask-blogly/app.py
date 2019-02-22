@@ -23,7 +23,7 @@ connect_db(app)
 @app.route('/')
 def redirect_to_users():
     '''show users'''
-    return redirect('/users')
+    return redirect('/404.html')
 
 ############ SHOW USERS PAGE ############
 
@@ -47,16 +47,16 @@ def new_user():
 def create_new_user():
     ''' show: /users
     create new users and redirect to users page'''
-    # new_first_name = request.form.get('first-name') 
-    # new_last_name  = request.form.get('last-name') 
-    # new_image_url = request.form.get('image-url') 
+    new_first_name = request.form.get('first-name') 
+    new_last_name  = request.form.get('last-name') 
+    new_image_url = request.form.get('image-url') 
 
-    new_first_name = request.form.get('first-name') or None
-    new_last_name  = request.form.get('last-name') or None
-    new_image_url = request.form.get('image-url') or None
+    # new_first_name = request.form.get('first-name') or None
+    # new_last_name  = request.form.get('last-name') or None
+    # new_image_url = request.form.get('image-url') or None
 
-    if new_first_name == "":
-        raise ValueError('all fielsds must be submitted')
+    # if new_first_name == "":
+    #     raise ValueError('all fielsds must be submitted')
 
     new_user = User(first_name = new_first_name, last_name = new_last_name, image_url=new_image_url)
     db.session.add(new_user)
@@ -181,6 +181,10 @@ def delete_post(postid):
     db.session.commit()
 
     return redirect(f'/users/{userid}')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
     # post.query.order_by('created_at desc').limit(5)
     # .filter(extract('year', Foo.Date) 

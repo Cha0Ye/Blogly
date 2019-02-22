@@ -1,6 +1,7 @@
 """Models for Blogly."""
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import backref
 
 db = SQLAlchemy()
 
@@ -50,4 +51,4 @@ class Post(db.Model):
                         db.ForeignKey('users.id'),
                         nullable=False)
     
-    user_route = db.relationship('User', backref='post_route')
+    user_route = db.relationship('User', backref=backref('post_route', cascade= "all, delete-orphan"))
