@@ -3,8 +3,10 @@
 {% block content %}
     <h3>{{user.full_name()}} </h3>
     <form><button formaction="/users" formmethod="GET"> Go Back to Users </button></form>
+    <br>
     <img src="{{user.image_url}}">
-
+    <br>
+    <br>
     <form action="/users/{{user.id}}/edit" >
         <button>Edit User</button>
         <button formaction="/users/{{user.id}}/delete" formmethod="POST">Delete User</button>

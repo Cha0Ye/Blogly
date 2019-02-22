@@ -10,11 +10,11 @@ db.create_all()
 User.query.delete()
 
 # Add users
-alan = User(first_name='Alan', last_name='Alda')
-joel = User(first_name='Joel', last_name='Burton')
-jane = User(first_name='Jane', last_name='Smith')
-sara = User(first_name='Sara', last_name='Zare', image_url='flask-blogly/Sara.jpg')
-chao = User(first_name='Chao', last_name='Ye', image_url='flask-blogly/Chao.jpg')
+alan = User(first_name='Alan', last_name='Alda', image_url='/static/alan.jpg')
+joel = User(first_name='Joel', last_name='Burton', image_url='/static/joel.jpg')
+jane = User(first_name='Jane', last_name='Smith', image_url='/static/jane.jpg')
+sara = User(first_name='Sara', last_name='Zare', image_url='/static/Sara.jpg')
+chao = User(first_name='Chao', last_name='Ye', image_url='/static/Chao.jpg')
 
 # Add new objects to session, so they'll persist
 db.session.add(alan)
