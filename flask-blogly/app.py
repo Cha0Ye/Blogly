@@ -3,6 +3,11 @@
 from flask import Flask, request, redirect, render_template
 from models import db, connect_db, User, Post
 from flask_debugtoolbar import DebugToolbarExtension
+from sqlalchemy import func # day of the week
+from datetime import datetime
+
+# from flask_sqlalchemy import SQLAlchemy
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "oh-so-secret"
@@ -42,16 +47,16 @@ def new_user():
 def create_new_user():
     ''' show: /users
     create new users and redirect to users page'''
-    new_first_name = request.form.get('first-name') 
-    new_last_name  = request.form.get('last-name') 
-    new_image_url = request.form.get('image-url') 
+    # new_first_name = request.form.get('first-name') 
+    # new_last_name  = request.form.get('last-name') 
+    # new_image_url = request.form.get('image-url') 
 
-    # new_first_name = request.form.get('first-name') or None
-    # new_last_name  = request.form.get('last-name') or None
-    # new_image_url = request.form.get('image-url') or None
+    new_first_name = request.form.get('first-name') or None
+    new_last_name  = request.form.get('last-name') or None
+    new_image_url = request.form.get('image-url') or None
 
-    # if new_first_name == "":
-    #     ...
+    if new_first_name == "":
+        raise ValueError('all fielsds must be submitted')
 
     new_user = User(first_name = new_first_name, last_name = new_last_name, image_url=new_image_url)
     db.session.add(new_user)
@@ -169,13 +174,17 @@ def delete_post(postid):
     '''delete post and redirect to users page'''
     post = Post.query.get(postid)
     
-    user = post.user_route
-    userid = user.id
-    print ("are are are here")
+    # user = post.user_route
+    userid = post.user_route.id
 
-    # post = Post.query.get(post)
     db.session.delete(post)
     db.session.commit()
 
-    # return redirect('/users')
     return redirect(f'/users/{userid}')
+
+    # post.query.order_by('created_at desc').limit(5)
+    # .filter(extract('year', Foo.Date) 
+    # .filter(extract('month', Foo.Date)
+
+# Add day of week:
+# dow = func.extract(<my_object>, 'dow')

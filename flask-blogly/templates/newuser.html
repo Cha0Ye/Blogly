@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h3>Create a user</h3>
+<h3>Create New User</h3>
 <form action="/users" method="POST">
     <label for="first-name">First Name</label>
     <input type="text" name='first-name'> <br>
@@ -10,7 +10,10 @@
     <input type="text" name="last-name"> <br>
     <label for="image-url">Image URL</label>
     <input type="text" name="image-url">
-    <button>Add</button>
+    <br>
+    <br>
+    <button>Add New User</button>
+    <button formaction="/users" formmethod="GET"> Cancel</button>
 </form>
       
 

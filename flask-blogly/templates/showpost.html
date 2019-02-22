@@ -6,9 +6,11 @@
     <p> <em>By</em> {{user.full_name()}}</p>
     
     <form>
-        <button formaction="/users/{{user.id}}">cancel</button>
-        <button formaction="/posts/{{post.id}}/edit">Edit</button>
-        <button formaction="/posts/{{post.id}}/delete" formmethod="POST" >Delete</button>
+        <button formaction="/users/{{user.id}}">Go Back To User Page </button>
+        <br>
+        <br>
+        <button formaction="/posts/{{post.id}}/edit">Edit Post</button>
+        <button formaction="/posts/{{post.id}}/delete" formmethod="POST" >Delete Post</button>
     </form>
 
 {% endblock %}

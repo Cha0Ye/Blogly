@@ -2,15 +2,16 @@
 
 {% block content %}
     <h3>{{user.full_name()}} </h3>
+    <form><button formaction="/users" formmethod="GET"> Go Back to Users </button></form>
     <img src="{{user.image_url}}">
 
     <form action="/users/{{user.id}}/edit" >
-        <button>Edit</button>
-        <button formaction="/users/{{user.id}}/delete" formmethod="POST">Delete</button>
+        <button>Edit User</button>
+        <button formaction="/users/{{user.id}}/delete" formmethod="POST">Delete User</button>
     </form>
 
     {% if posts %}
-        <h3>Posts</h3>
+        <h3>Posts: </h3>
         {% for post in posts %}
             <ul>
                 <li><a href="/posts/{{post.id}}"> {{ post.title }}</a></li>
@@ -19,5 +20,6 @@
     {% endif %}
     <form action="/users/{{ user.id }}/posts/new">
         <button>Add Post</button>
+        
     </form>
 {% endblock %}
