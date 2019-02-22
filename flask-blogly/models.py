@@ -50,4 +50,4 @@ class Post(db.Model):
                         db.ForeignKey('users.id'),
                         nullable=False)
     
-    users = db.relationship('User', backref='posts')     #defined for relationship
+    user_route = db.relationship('User', backref='post_route')

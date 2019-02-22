@@ -66,8 +66,9 @@ def show_user_info(userid):
     '''show: /userpage.html
     users info'''
     user = User.query.get(userid)
-    
-    return render_template('userpage.html', user = user)
+    posts=user.post_route
+
+    return render_template('userpage.html', user = user, posts=posts)
 
 
 ############ EDIT EXISTING USERS PAGE ############
@@ -106,23 +107,39 @@ def delete_user_info(userid):
 
 ########### ADD POSTS IN USER PAGE ############
 @app.route('/users/<int:userid>/posts/new')
-def show_add_post(userid):
-    '''Show Add New post '''
+def render_add_new_post(userid):
+    '''render Add New post form '''
     user = User.query.get(userid)
 
     return render_template('newpost.html', user=user)
 
 
 @app.route('/users/<int:userid>/posts', methods=['POST'])
-def add_post(userid):
-    '''Add post '''
+def handle_new_post(userid):
+    '''Handle new post'''
     user = User.query.get(userid)
 
-    post.title  = request.form.get('post-title')
-    post.content  = request.form.get('post-content')
-    post.user_id = userid
+    post_title  = request.form.get('post-title')
+    post_content  = request.form.get('post-content')
+    post_user_id = userid
     
+    new_post = Post(title = post_title, content = post_content, user_id = post_user_id)
+    db.session.add(new_post)
     db.session.commit()
 
-    return redirect('/users')
-    # return redirect(f'/users/{userid}')
+    return redirect(f'/users/{userid}')
+
+########### RENDER SHOW POST ############
+@app.route('/posts/<postid>')
+def show_post(postid):
+    '''Show Post '''
+    
+    post = Post.query.get(postid)
+    user = post.user_route
+
+    return render_template('showpost.html', post=post, user=user)
+
+
+# render edit form GET /users/posts/{{user.id}}/edit
+# delete POST /users/posts/{{user.id}}/delete
+#     

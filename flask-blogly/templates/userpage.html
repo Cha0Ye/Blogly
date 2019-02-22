@@ -3,16 +3,15 @@
 {% block content %}
     <h3>{{user.full_name()}} </h3>
     <img src="{{user.image_url}}">
+
     <form action="/users/{{user.id}}/edit" >
         <button>Edit</button>
-    </form>
-    <form action="/users/{{user.id}}/delete" method="POST">
-        <button>Delete</button>
+        <button formaction="/users/{{user.id}}/delete" formmethod="POST">Delete</button>
     </form>
 
-    {% if user.posts %}
+    {% if posts %}
         <h3>Posts</h3>
-        {% for post in user.posts %}
+        {% for post in posts %}
             <ul>
                 <li><a href="/posts/{{post.id}}"> {{ post.title }}</a></li>
             </ul>
