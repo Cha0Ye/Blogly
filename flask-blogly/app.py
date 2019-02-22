@@ -157,12 +157,25 @@ def save_edit_post(postid):
 
     post.title  = request.form.get('post-title')
     post.content  = request.form.get('post-content')
-    
-    user = post.user_route
-    post.user_id = user.id
-    
-    # edited_post = Post(title = post_title, content = post_content, user_id = post_user_id)
-    # db.session.add(edited_post)
+
     db.session.commit()
 
     return redirect(f'/posts/{postid}')
+
+############ DELETE POST  ############
+
+@app.route('/posts/<int:postid>/delete', methods=['POST'])
+def delete_post(postid):
+    '''delete post and redirect to users page'''
+    post = Post.query.get(postid)
+    
+    user = post.user_route
+    userid = user.id
+    print ("are are are here")
+
+    # post = Post.query.get(post)
+    db.session.delete(post)
+    db.session.commit()
+
+    # return redirect('/users')
+    return redirect(f'/users/{userid}')

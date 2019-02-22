@@ -8,7 +8,7 @@
     <form>
         <button formaction="/users/{{user.id}}">cancel</button>
         <button formaction="/posts/{{post.id}}/edit">Edit</button>
-        <button formaction="/users/posts/{{user.id}}/delete" formmethod="POST">Delete</button>
+        <button formaction="/posts/{{post.id}}/delete" formmethod="POST" >Delete</button>
     </form>
 
 {% endblock %}
