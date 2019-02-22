@@ -28,6 +28,7 @@ class User(db.Model):
                     nullable=True, 
                     default='https://www.gettyimages.com/gi-resources/images/CreativeLandingPage/HP_Sept_24_2018/CR3_GettyImages-159018836.jpg')
 
+    # add a new method on User class to call full_name
     def full_name(self):
         return self.first_name + ' ' + self.last_name    
 
@@ -52,3 +53,34 @@ class Post(db.Model):
                         nullable=False)
     
     user_route = db.relationship('User', backref=backref('post_route', cascade= "all, delete-orphan"))
+
+
+# Added Tag Class
+# Added PostTag Class
+# to query composite index:
+# (((size)::text = 'small'::text) AND ((color)::text = 'red'::text))
+
+    class Tag(db.Model):
+    """ Tag class """
+
+    __tablename__ = "tags"
+
+    id = db.Column(db.Integer,
+                    primary_key=True,
+                    autoincrement=True)
+    name = db.Column(db.String(200),
+                    nullable=False,
+                    unique=True)
+
+
+class PostTag(db.Model):
+    """ PostTag class """
+
+    __tablename__ = "posttags"
+
+    post_id = db.Column(db.Integer,
+                    db.ForeighKey("posts.id")
+                    primary_key=True)
+    tag_id = db.Column(db.String(200),
+                    db.ForeighKey("tags.id")
+                    primary_key=True)                    
